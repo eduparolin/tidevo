@@ -4,9 +4,12 @@ const uuid = require('uuid/v4');
 
 exports.storePurchase = (req, res) => {
     nfe.convert(req.body.url)
-        .then((r) => {
+        .then((nota) => {
+
+            nota.tidevoId = req.body.tidevoId;
+
             let newPayment = db.collection('purchases').doc(uuid());
-            newPayment.set(r);
+            newPayment.set(nota);
             res.status(202).end();
         })
         .catch((err) => {
